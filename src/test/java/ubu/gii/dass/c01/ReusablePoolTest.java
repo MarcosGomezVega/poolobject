@@ -131,5 +131,13 @@ public class ReusablePoolTest {
 		}
 	}
 
-
+	
+	/**
+	 * Test method for {@link ubu.gii.dass.c01.Client}.
+	 */
+	@Test
+	@DisplayName("testClient")
+	public void testClient() {
+		assertNotNull(new Client());
+	}
 }
