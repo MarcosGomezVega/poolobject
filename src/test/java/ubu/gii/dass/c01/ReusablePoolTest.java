@@ -27,6 +27,42 @@ public class ReusablePoolTest {
 	}
 
 	/**
+	 * Funcionalidad: Se ejecuta después de cada prueba e intenta adquirir todas las instancias reutilizables
+	 * del pool hasta que no queden libres, para luego liberar nuevas instancias y restablecer el estado del pool.
+	 * 
+	 * Registra información del estado del pool antes y después del proceso.
+	 * 
+	 * @throws NotFreeInstanceException si no quedan instancias libres para adquirir.
+	 * @throws DuplicatedInstanceException si se intenta liberar una instancia que ya fue liberada (ignorado en este método).
+	 */
+	@AfterEach
+	public void despues() {
+		Logger logger = Logger.getLogger(ReusablePool.class.getName());
+		ReusablePool pool = ReusablePool.getInstance();
+
+		logger.fine("Estado del pool antes de limpiar: " + pool);
+
+		boolean hayInstanciasLibres = true;
+		while (hayInstanciasLibres) {
+			try {
+				pool.acquireReusable();
+			} catch (NotFreeInstanceException e) {
+				hayInstanciasLibres = false;
+			}
+		}
+
+		for (int i = 0; i < 2; i++) {
+			try {
+				pool.releaseReusable(new Reusable());
+			} catch (DuplicatedInstanceException e) {
+				logger.warning("Intento de liberar instancia duplicada ignorado.");
+			}
+		}
+
+		logger.fine("Estado del pool después de limpiar: " + pool);
+	}
+
+	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#getInstance()}.
 	 */
 	@Test
