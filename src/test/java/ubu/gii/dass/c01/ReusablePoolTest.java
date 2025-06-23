@@ -5,7 +5,10 @@ package ubu.gii.dass.c01;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -34,14 +37,15 @@ public class ReusablePoolTest {
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#getInstance()}.
 	 */
-        @Test
-        @DisplayName("testGetInstance")
+    @Test
+    @DisplayName("testGetInstance")
 	public void testGetInstance() {
 
 		ReusablePool pool1 = ReusablePool.getInstance();
         ReusablePool pool2 = ReusablePool.getInstance();
         assertNotNull(pool1);
         assertNotNull(pool2);
+		assertSame(pool1, pool2);
         assertEquals(pool1, pool2);
 		
 	}
@@ -50,19 +54,17 @@ public class ReusablePoolTest {
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
 	 */
 	@Test
-        @DisplayName("testAcquireReusable")
-        @Disabled("Not implemented yet")
-
+    @DisplayName("testAcquireReusable")
 	public void testAcquireReusable() {
-		
+	
 	}
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
 	 */
 	@Test
-        @DisplayName("testReleaseReusable")
-        @Disabled("Not implemented yet")
+    @DisplayName("testReleaseReusable")
+    @Disabled("Not implemented yet")
 	public void testReleaseReusable() {
 		
 	}
