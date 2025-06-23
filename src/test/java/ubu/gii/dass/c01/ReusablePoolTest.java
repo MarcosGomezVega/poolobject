@@ -3,6 +3,7 @@
  */
 package ubu.gii.dass.c01;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -56,7 +57,14 @@ public class ReusablePoolTest {
     @Disabled("Not implemented yet")
 
 	public void testAcquireReusable() {
-		
+		ReusablePool pool = ReusablePool.getInstance();
+    	for (int i = 0; i < 2; i++) {
+        	assertDoesNotThrow(() -> pool.acquireReusable());
+    	}
+
+    	assertThrows(NotFreeInstanceException.class, () -> {
+        pool.acquireReusable();
+    	}, "Se esperaba NotFreeInstanceException al exceder el límite");
 	}
 
 	/**
