@@ -9,7 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -77,6 +79,10 @@ public class ReusablePoolTest {
 		}, "No se debe permitir liberar la misma instancia dos veces");
 	}
 
+
+	/**
+	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()} and {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+	 */
 	@Test
 	@DisplayName("testPoolReuseAndUtil")
 	public void testPoolReuseAndUtil() {
@@ -113,5 +119,15 @@ public class ReusablePoolTest {
 		} catch (Exception e) {
 			fail("Error inesperado: " + e.getMessage());
 		}
+	}
+	
+	/**
+	 * Test method for {@link ubu.gii.dass.c01.Client}.
+	 */
+	@Test
+	@DisplayName("testClient")
+	public void testClient() {
+		assertNotNull(new Client());
+		assertDoesNotThrow(() -> Client.main(null));
 	}
 }
