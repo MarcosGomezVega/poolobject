@@ -1,3 +1,7 @@
+[![codecov](https://codecov.io/gh/MarcosGomezVega/poolobject/graph/badge.svg?token=G8XRFKSWN9)](https://codecov.io/gh/MarcosGomezVega/poolobject)
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4725c846c0f54357a8666cd10b9cb509)](https://app.codacy.com/gh/MarcosGomezVega/poolobject/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 poolobject
 ==========
 
