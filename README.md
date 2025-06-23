@@ -10,3 +10,9 @@ Authors:
 
 - Carlos Lopez Nozal
 - Jesus Alonso Abad
+
+Editoris:
+- Marcos Gómez Vega - @mgv1017@alu.ubu.es
+
+Información sobre las pruebas de cobertura:
+[PG_01 - Informe de Actividad](https://github.com/MarcosGomezVega/poolobject/wiki/PG_01-Informe-de-Actividad)
