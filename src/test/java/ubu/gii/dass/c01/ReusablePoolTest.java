@@ -3,8 +3,10 @@ package ubu.gii.dass.c01;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterAll;
@@ -73,5 +75,43 @@ public class ReusablePoolTest {
 		assertThrows(DuplicatedInstanceException.class, () -> {
 			pool.releaseReusable(finalReusable);
 		}, "No se debe permitir liberar la misma instancia dos veces");
+	}
+
+	@Test
+	@DisplayName("testPoolReuseAndUtil")
+	public void testPoolReuseAndUtil() {
+		ReusablePool pool = ReusablePool.getInstance();
+
+		try {
+			Reusable objA = pool.acquireReusable();
+			Reusable objB = pool.acquireReusable();
+
+			assertNotNull(objA, "objA no debe ser nulo");
+			assertNotNull(objB, "objB no debe ser nulo");
+			assertNotSame(objA, objB, "objA y objB deben ser distintos");
+
+			String valA = objA.util();
+			String valB = objB.util();
+
+			assertTrue(valA.contains(String.valueOf(objA.hashCode())), 
+				"valA debe contener hashCode de objA");
+			assertTrue(valB.contains(":Uso del objeto Reutilizable"), 
+				"valB debe contener el mensaje esperado");
+
+			pool.releaseReusable(objB);
+			pool.releaseReusable(objA);
+
+			Reusable objC = pool.acquireReusable();
+			Reusable objD = pool.acquireReusable();
+
+			assertSame(objA, objC, "objC debe ser el mismo que objA");
+			assertSame(objB, objD, "objD debe ser el mismo que objB");
+
+			pool.releaseReusable(objC);
+			pool.releaseReusable(objD);
+
+		} catch (Exception e) {
+			fail("Error inesperado: " + e.getMessage());
+		}
 	}
 }
